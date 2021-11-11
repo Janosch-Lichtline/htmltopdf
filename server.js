@@ -7,16 +7,18 @@ const dotenv = require('dotenv');
 const request = require('request');
 const fs = require('fs');
 const FormData = require('form-data');
-const { response } = require('express');
+const helper = require('./helper');
 dotenv.config();
 
 // Laden des HTML Templates
 async function GetHTML() {
-
+    const tableID = 5302439;
+    
     // Load Products from HubspotDB
-    await axios.get(`https://api.hubapi.com/cms/v3/hubdb/tables/5278217/rows?hapikey=${process.env.HUBSPOT_API_KEY}`).then( async (result) => {
+    await axios.get(`https://api.hubapi.com/cms/v3/hubdb/tables/${tableID}/rows?hapikey=${process.env.HUBSPOT_API_KEY}`).then( async (result) => {
         // Get result
         const productRows = result.data.results;
+        console.log(productRows.length);
         //console.log(productRows);
 
         // Loop through all Products
@@ -25,9 +27,9 @@ async function GetHTML() {
             const path = productRows[i].path;
 
             // Check if path exists
-            if(path == null || path == undefined){
-              return;
-            }
+            // if(path == null || path == undefined){
+            //   return;
+            // }
 
             // Build template url
             var templateUrl = `http://lichtline-7712640.hs-sites.com/datenblatt/${path}`;
@@ -76,34 +78,24 @@ async function GetHTML() {
           var friendlyFileURL = `https://f.hubspotusercontent40.net/hubfs/7712640/docs/${fileName}`;
           console.log(friendlyFileURL);
 
-          // const urlForProductIds = `https://api.hubapi.com/hubdb/api/v2/tables/5278217/rows/draft?hapikey=${process.env.HUBSPOT_API_KEY}`;
-          // axios.get(urlForProductIds).then((result) => {
-          //   console.log(result.data["objects"][0]["values"]);
-          // });
+         
 
           // Set URL in HubDB for product row
-          var urlForURLPost = `https://api.hubapi.com/hubdb/api/v2/tables/5278217/rows/59395405747/cells/55?hapikey=${process.env.HUBSPOT_API_KEY}`;
-            axios.post(urlForURLPost, {"value" : "Updated Row Text55"}, { params: {
-              "value" : "Updated Row Text"
-            }})
-            .then(response => console.log(response.data));
-          
-
-          
+          const rowId = productRows[i].id;
+          //console.log(productRows[i]);
+          console.log(rowId);
+          var urlForURLPost = `https://api.hubapi.com/hubdb/api/v2/tables/${tableID}/rows/${rowId}/cells/55?hapikey=${process.env.HUBSPOT_API_KEY}`;
+            axios.post(urlForURLPost, {"value" : friendlyFileURL});
         }
-        
-            
-          
-            
         });
-
-       
-   
-
-
-
-   
-
 };
 
+
+
+
+
 GetHTML();
+
+
+
+

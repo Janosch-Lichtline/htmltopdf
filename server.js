@@ -8,10 +8,11 @@ const request = require('request');
 const fs = require('fs');
 const FormData = require('form-data');
 const helper = require('./helper');
+const schedule = require('node-schedule');
 dotenv.config();
 
 // Laden des HTML Templates
-async function GetHTML() {
+async function RunHubspotPDFCreation() {
     const tableID = 5302439;
     
     // Load Products from HubspotDB
@@ -90,11 +91,9 @@ async function GetHTML() {
         });
 };
 
-
-
-
-
-GetHTML();
+schedule.scheduleJob('0 0 * * *', function(){
+  RunHubspotPDFCreation();
+});
 
 
 

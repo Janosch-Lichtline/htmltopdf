@@ -17,6 +17,7 @@ async function GetHTML() {
     await axios.get(`https://api.hubapi.com/cms/v3/hubdb/tables/5278217/rows?hapikey=${process.env.HUBSPOT_API_KEY}`).then( async (result) => {
         // Get result
         const productRows = result.data.results;
+        //console.log(productRows);
 
         // Loop through all Products
         for(var i=0; i< productRows.length; i++) {
@@ -75,10 +76,14 @@ async function GetHTML() {
           var friendlyFileURL = `https://f.hubspotusercontent40.net/hubfs/7712640/docs/${fileName}`;
           console.log(friendlyFileURL);
 
+          // const urlForProductIds = `https://api.hubapi.com/hubdb/api/v2/tables/5278217/rows/draft?hapikey=${process.env.HUBSPOT_API_KEY}`;
+          // axios.get(urlForProductIds).then((result) => {
+          //   console.log(result.data["objects"][0]["values"]);
+          // });
+
           // Set URL in HubDB for product row
-          var urlForURLPost = `https://api.hubapi.com/hubdb/api/v2/tables/5278217/rows/59395405747/cells/4?hapikey=${process.env.HUBSPOT_API_KEY}`;
-         //axios.post(urlForURLPost, {"value" : "Updated Row Text"}).then((result) => {
-            axios.post(urlForURLPost, {"value" : "Updated Row Text"}, { params: {
+          var urlForURLPost = `https://api.hubapi.com/hubdb/api/v2/tables/5278217/rows/59395405747/cells/55?hapikey=${process.env.HUBSPOT_API_KEY}`;
+            axios.post(urlForURLPost, {"value" : "Updated Row Text55"}, { params: {
               "value" : "Updated Row Text"
             }})
             .then(response => console.log(response.data));

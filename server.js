@@ -19,18 +19,11 @@ async function RunHubspotPDFCreation() {
     await axios.get(`https://api.hubapi.com/cms/v3/hubdb/tables/${tableID}/rows?hapikey=${process.env.HUBSPOT_API_KEY}`).then( async (result) => {
         // Get result
         const productRows = result.data.results;
-        console.log(productRows.length);
-        //console.log(productRows);
 
         // Loop through all Products
         for(var i=0; i< productRows.length; i++) {
             // Get Path
             const path = productRows[i].path;
-
-            // Check if path exists
-            // if(path == null || path == undefined){
-            //   return;
-            // }
 
             // Build template url
             var templateUrl = `http://lichtline-7712640.hs-sites.com/datenblatt/${path}`;
@@ -79,17 +72,16 @@ async function RunHubspotPDFCreation() {
           var friendlyFileURL = `https://f.hubspotusercontent40.net/hubfs/7712640/docs/${fileName}`;
           console.log(friendlyFileURL);
 
-         
-
           // Set URL in HubDB for product row
           const rowId = productRows[i].id;
-          //console.log(productRows[i]);
-          console.log(rowId);
-          var urlForURLPost = `https://api.hubapi.com/hubdb/api/v2/tables/${tableID}/rows/${rowId}/cells/55?hapikey=${process.env.HUBSPOT_API_KEY}`;
+          const columnID = 55;
+          var urlForURLPost = `https://api.hubapi.com/hubdb/api/v2/tables/${tableID}/rows/${rowId}/cells/${columnID}?hapikey=${process.env.HUBSPOT_API_KEY}`;
             axios.post(urlForURLPost, {"value" : friendlyFileURL});
         }
         });
 };
+
+// Run every day at 00:00
 
 schedule.scheduleJob('0 0 * * *', function(){
   RunHubspotPDFCreation();

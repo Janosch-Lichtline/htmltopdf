@@ -13,7 +13,9 @@ dotenv.config();
 
 // Laden des HTML Templates
 async function RunHubspotPDFCreation() {
-    const tableID = 5302439;
+    //5278217 Production
+    //5302439 TestTable
+    const tableID = 5278217;
     
     // Load Products from HubspotDB
     await axios.get(`https://api.hubapi.com/cms/v3/hubdb/tables/${tableID}/rows?hapikey=${process.env.HUBSPOT_API_KEY}`).then( async (result) => {
@@ -36,8 +38,8 @@ async function RunHubspotPDFCreation() {
               waitUntil: 'networkidle2',
             });
 
-            var fileName = `Datenblatt-Test-${path}.pdf`;
-            var pathToFile = `./files/Datenblatt-Test-${path}.pdf`
+            var fileName = `${path}.pdf`;
+            var pathToFile = `./files/${path}.pdf`
             await page.pdf({ path: pathToFile, format: 'a4' });
             await browser.close();
 
@@ -57,7 +59,7 @@ async function RunHubspotPDFCreation() {
           var formData = {
               file: fs.createReadStream(pathToFile),
               options: JSON.stringify(fileOptions),
-              folderPath: 'docs'
+              folderPath: 'Homepage/Datenblaetter'
           };
           
           // Send post request
@@ -69,23 +71,25 @@ async function RunHubspotPDFCreation() {
           });
           
           // Friendly URL
-          var friendlyFileURL = `https://f.hubspotusercontent40.net/hubfs/7712640/docs/${fileName}`;
+          // 
+          var friendlyFileURL = `https://f.hubspotusercontent40.net/hubfs/7712640/Homepage/Datenblaetter/${fileName}`;
           console.log(friendlyFileURL);
 
           // Set URL in HubDB for product row
           const rowId = productRows[i].id;
           const columnID = 55;
           var urlForURLPost = `https://api.hubapi.com/hubdb/api/v2/tables/${tableID}/rows/${rowId}/cells/${columnID}?hapikey=${process.env.HUBSPOT_API_KEY}`;
-            axios.post(urlForURLPost, {"value" : friendlyFileURL});
+          axios.post(urlForURLPost, {"value" : friendlyFileURL});
         }
         });
 };
 
 // Run every day at 00:00
-
 schedule.scheduleJob('0 0 * * *', function(){
   RunHubspotPDFCreation();
 });
+
+RunHubspotPDFCreation();
 
 
 

@@ -1,35 +1,35 @@
 {
-  "name": "lichtline-hubspot-html-to-pdf",
-  "version": "1.0.0",
-  "description": "Loads html template from hubspot url, creates pdf and saves it in the hubspot file manager",
-  "main": "server.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/johannessiedersberger/lichtline-hubspot-html-to-pdf.git"
-  },
-  "author": "johannessiedersberger",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/johannessiedersberger/lichtline-hubspot-html-to-pdf/issues"
-  },
-  "homepage": "https://github.com/johannessiedersberger/lichtline-hubspot-html-to-pdf#readme",
-  "dependencies": {
-    "axios": "^0.24.0",
-    "body-parser": "^1.19.0",
-    "cors": "^2.8.5",
-    "dotenv": "^10.0.0",
-    "express": "^4.17.1",
-    "fetch": "^1.1.0",
-    "form-data": "^4.0.0",
-    "formdata": "^0.10.4",
-    "html-pdf": "^3.0.1",
-    "jquery": "^3.6.0",
-    "node-fetch": "^3.0.0",
-    "node-schedule": "^2.0.0",
-    "path": "^0.12.7",
-    "puppeteer": "^11.0.0"
-  }
+    "name": "lichtline-hubspot-html-to-pdf",
+    "version": "1.0.0",
+    "description": "Loads html template from hubspot url, creates pdf and saves it in the hubspot file manager",
+    "main": "server.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Janosch-Lichtline/webserver.git"
+    },
+    "author": "johannessiedersberger",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/Janosch-Lichtline/webserver.git"
+    },
+    "homepage": "https://github.com/Janosch-Lichtline/webserver.git",
+    "dependencies": {
+        "axios": "^0.24.0",
+        "body-parser": "^1.19.0",
+        "cors": "^2.8.5",
+        "dotenv": "^10.0.0",
+        "express": "^4.18.1",
+        "fetch": "^1.1.0",
+        "form-data": "^4.0.0",
+        "formdata": "^0.10.4",
+        "html-pdf": "^3.0.1",
+        "jquery": "^3.6.0",
+        "node-fetch": "^3.0.0",
+        "node-schedule": "^2.0.0",
+        "path": "^0.12.7",
+        "puppeteer": "^11.0.0"
+    }
 }

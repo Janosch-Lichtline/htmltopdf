@@ -49,7 +49,7 @@ async function RunHubspotPDFCreation() {
             await page.pdf({ path: pathToFile, format: 'a4' });
             await browser.close();
 
-            // Upload to Hubspot
+            // Upload to Hubspot 
             var postUrl = `https://api.hubapi.com/filemanager/api/v3/files/upload?hapikey=${process.env.HUBSPOT_API_KEY}`;
 
             // File Options
